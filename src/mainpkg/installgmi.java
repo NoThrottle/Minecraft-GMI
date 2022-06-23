@@ -304,7 +304,7 @@ public class installgmi {
 				@Override
 				public void run() {
 			        try {
-			            downloadUsingNIO(url, b + "/mods_01_" + a + ".jar");
+			            downloadUsingNIO(url, b + "/mods_01_" + a + "-" + url.split("/")[url.split("/").length-1] + ".jar");
 			            
 				        if (display.isDisposed())
 				            return;
