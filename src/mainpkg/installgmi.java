@@ -1,8 +1,10 @@
 package mainpkg;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -10,6 +12,8 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -85,12 +89,53 @@ public class installgmi {
 		text.setBounds(28, 99, 307, 25);
 		
 		btndld.addMouseListener(new MouseAdapter() {
+			
 			@Override
 			public void mouseDown(MouseEvent e) {
 				
-				if (VerifyPath(text.getText()) && PathClean(text.getText())) {
-					download();
+				final String path = text.getText();
+				
+				if (VerifyPath(text.getText())) {
 					btndld.setEnabled(false);
+	  				new Thread(new Runnable() {
+	  					
+	  					@Override
+	  					public void run() {
+	  						
+		  					PathCleanclass pcc = new PathCleanclass();
+		  					pcc.path = path;
+		  					Thread threads = new Thread(pcc);
+		  					
+		  					threads.start();
+		  					try {
+								threads.join();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+	
+	  						
+	  						if(pcc.getValue()) {
+	  							download();
+
+	  						}else {
+	  							if (display.isDisposed())
+						            return;
+						          display.asyncExec(new Runnable() {
+						            public void run() {
+						              if (btndld.isDisposed())
+						                return;
+						              btndld.setEnabled(true);
+						            }
+						          });
+	  						}
+	  						
+	  						
+
+	  					}
+	  					
+	  				
+	  				}).start();
 				}
 
 			}
@@ -146,78 +191,123 @@ public class installgmi {
 	
 	//////////////////////////////////////
 	   
-   private static String[] modlist = 
-	   	  {"https://cdn.modrinth.com/data/P7dR8mSH/versions/0.56.1+1.19/fabric-api-0.56.1%2B1.19.jar", 
-	   			"https://cdn.modrinth.com/data/Fb4jn8m6/versions/1.19-3.6.1/FallingTree-1.19-3.6.1.jar", 
-
-	   			"https://cdn.modrinth.com/data/1bZhdhsH/versions/fabric-1.19-1.2.16/plasmovoice-fabric-1.19-1.2.16.jar", 
-	   			"https://media.forgecdn.net/files/3831/918/better-nether-7.0.2.jar", 
-	   			"https://media.forgecdn.net/files/3831/904/better-end-2.0.2.jar", 
-	   			"https://cdn.modrinth.com/data/EsAfCjCV/versions/fabric-mc1.19-2.4.0/appleskin-fabric-mc1.19-2.4.0.jar", 
-	   			"https://media.forgecdn.net/files/3822/878/Croptopia-1.19-FABRIC-2.0.5.jar", 
-	   			"https://media.forgecdn.net/files/3831/901/bclib-2.0.5.jar", 
-	   			"https://media.forgecdn.net/files/3805/637/moreberries-1.5.1.jar", 
-	   			"https://cdn.modrinth.com/data/9s6osm5g/versions/7.0.72+fabric/cloth-config-7.0.72-fabric.jar", 
-
-	   			"https://media.forgecdn.net/files/3835/518/fabrication-3.0-pre4%2B1.19.jar", 
-	   			"https://media.forgecdn.net/files/3827/640/Couplings-1.9.0%2B1.19.jar", 
-	   			"https://media.forgecdn.net/files/3831/60/dehydration-1.2.9.jar", 
-
-	   			"https://media.forgecdn.net/files/3836/369/backslot-1.2.8.jar", 
-
-	   			"https://cdn.modrinth.com/data/hvFnDODi/versions/0.1.3/lazydfu-0.1.3.jar", 
-	   			"https://cdn.modrinth.com/data/Ha28R6CL/versions/1.8.0+kotlin.1.7.0/fabric-language-kotlin-1.8.0%2Bkotlin.1.7.0.jar", 
-	   			"https://cdn.modrinth.com/data/E6FUtRJh/versions/3.5.4-fabric/Adorn-3.5.4%2B1.19-fabric.jar", 
-
-	   			"https://media.forgecdn.net/files/3824/701/time-and-wind-ct-1.4.2%2B1.19.jar", 
-	   			"https://cdn.modrinth.com/data/WhbRG4iK/versions/1.12.1/fallingleaves-1.12.1%2B1.19.jar", 
-	   			"https://cdn.modrinth.com/data/rUgZvGzi/versions/1.8.1/eating-animation-1.8.1.jar", 
-	   			"https://cdn.modrinth.com/data/aC3cM3Vq/versions/1.19-2.22-fabric/MouseTweaks-fabric-mc1.19-2.22.jar", 
-	   			"https://cdn.modrinth.com/data/YL57xq9U/versions/1.19.x-v1.2.5/iris-mc1.19-1.2.5.jar", 
-	   			"https://cdn.modrinth.com/data/yBW8D80W/versions/2.1.2+1.19/lambdynamiclights-2.1.2%2B1.19.jar", 
-	   			"https://cdn.modrinth.com/data/AANobbMI/versions/mc1.19-0.4.2/sodium-fabric-mc1.19-0.4.2%2Bbuild.16.jar"
-
+   private String[] modlist = 
+	   	  {"https://cdn.modrinth.com/data/P7dR8mSH/versions/0.56.1+1.19/fabric-api-0.56.1%2B1.19.jar",
+	   			"https://cdn.modrinth.com/data/Fb4jn8m6/versions/1.19-3.6.1/FallingTree-1.19-3.6.1.jar",
+	   			"https://cdn.modrinth.com/data/1bZhdhsH/versions/fabric-1.19-1.2.16/plasmovoice-fabric-1.19-1.2.16.jar",
+	   			"https://media.forgecdn.net/files/3831/918/better-nether-7.0.2.jar",
+	   			"https://media.forgecdn.net/files/3831/904/better-end-2.0.2.jar",
+	   			"https://cdn.modrinth.com/data/EsAfCjCV/versions/fabric-mc1.19-2.4.0/appleskin-fabric-mc1.19-2.4.0.jar",
+	   			"https://media.forgecdn.net/files/3822/878/Croptopia-1.19-FABRIC-2.0.5.jar",
+	   			"https://media.forgecdn.net/files/3831/901/bclib-2.0.5.jar",
+	   			"https://media.forgecdn.net/files/3805/637/moreberries-1.5.1.jar",
+	   			"https://cdn.modrinth.com/data/9s6osm5g/versions/7.0.72+fabric/cloth-config-7.0.72-fabric.jar",
+	   			"https://media.forgecdn.net/files/3835/518/fabrication-3.0-pre4%2B1.19.jar",
+	   			"https://media.forgecdn.net/files/3827/640/Couplings-1.9.0%2B1.19.jar",
+	   			"https://media.forgecdn.net/files/3831/60/dehydration-1.2.9.jar",
+	   			"https://media.forgecdn.net/files/3836/369/backslot-1.2.8.jar",
+	   			"https://cdn.modrinth.com/data/hvFnDODi/versions/0.1.3/lazydfu-0.1.3.jar",
+	   			"https://cdn.modrinth.com/data/Ha28R6CL/versions/1.8.0+kotlin.1.7.0/fabric-language-kotlin-1.8.0%2Bkotlin.1.7.0.jar",
+	   			"https://cdn.modrinth.com/data/E6FUtRJh/versions/3.5.4-fabric/Adorn-3.5.4%2B1.19-fabric.jar",
+	   			"https://media.forgecdn.net/files/3824/701/time-and-wind-ct-1.4.2%2B1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3840/877/immersive-portals-2.0.2-mc1.19-fabric.jar",
+	   			"https://cdn.modrinth.com/data/nU0bVIaL/versions/1.19-72-fabric/Patchouli-1.19-72-FABRIC.jar",
+	   			"https://mediafiles.forgecdn.net/files/3830/133/Oh_The_Biomes_You%27ll_Go-fabric-1.19-2.0.0.4.jar",
+	   			"https://mediafiles.forgecdn.net/files/3838/384/TerraBlender-fabric-1.19-2.0.0.113.jar",
+	   			"https://mediafiles.forgecdn.net/files/3841/599/bitsandchisels-2.7.0.jar",
+	   			"https://mediafiles.forgecdn.net/files/3834/909/levelz-1.3.6.jar",
+	   			"https://mediafiles.forgecdn.net/files/3831/66/rpgz-0.5.1.jar",
+	   			"https://mediafiles.forgecdn.net/files/3841/562/wraith-waystones-3.0.1%2Bmc1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3844/189/SimpleBackpack_Fabric-1.19.0-1.3.16.jar",
+	   			"https://mediafiles.forgecdn.net/files/3821/57/xp_obelisk-0.4.0.r_for_1.19.x_Fabric.jar",
+	   			"https://mediafiles.forgecdn.net/files/3834/982/earthtojavamobs-fabric-mc1.19-1.9.0%2B1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3843/623/architectury-5.7.28-fabric.jar",
+	   			"https://mediafiles.forgecdn.net/files/3822/773/soundphysics-fabric-1.19-1.0.6.jar",
+	   			"https://mediafiles.forgecdn.net/files/3823/521/notenoughanimations-fabric-1.6.0-mc1.19.jar",
+	   			"https://cdn.modrinth.com/data/WhbRG4iK/versions/1.12.1/fallingleaves-1.12.1%2B1.19.jar",
+	   			"https://cdn.modrinth.com/data/rUgZvGzi/versions/1.8.1/eating-animation-1.8.1.jar",
+	   			"https://cdn.modrinth.com/data/aC3cM3Vq/versions/1.19-2.22-fabric/MouseTweaks-fabric-mc1.19-2.22.jar",
+	   			"https://cdn.modrinth.com/data/YL57xq9U/versions/1.19.x-v1.2.5/iris-mc1.19-1.2.5.jar",
+	   			"https://cdn.modrinth.com/data/yBW8D80W/versions/2.1.2+1.19/lambdynamiclights-2.1.2%2B1.19.jar",
+	   			"https://cdn.modrinth.com/data/AANobbMI/versions/mc1.19-0.4.2/sodium-fabric-mc1.19-0.4.2%2Bbuild.16.jar",
+	   			"https://cdn.modrinth.com/data/Orvt0mRa/versions/1.0.6+mc1.19/indium-1.0.6%2Bmc1.19.jar",
+	   			"https://cdn.modrinth.com/data/rI0hvYcd/versions/0.5.0/visuality-0.5.0.jar",
+	   			"https://mediafiles.forgecdn.net/files/3843/596/illuminations-1.10.6.jar",
+	   			"https://mediafiles.forgecdn.net/files/3829/237/extrasounds-2.3.1%2B1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3839/977/betterfpsdist-fabric-1.19-1.9.jar",
+	   			"https://mediafiles.forgecdn.net/files/3834/55/lambdabettergrass-1.3.0%2B1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3823/508/entityculling-fabric-1.5.2-mc1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3841/824/enhancedblockentities-0.7.1%2B1.19.jar"
    			};
   
    
    public void download() {
       int i = 0;
-      String path = text.getText();
-      progressBar.setMaximum(modlist.length-1);
+      
+      final String[] path = new String[1];
+      Display.getDefault().syncExec(
+    		  new Runnable() {
+			          public void run(){
+			
+			               path[0] = text.getText();
+			          }
+    		  	}
+    		  );
+      
+      final int[] selection = new int[1];
+      Display.getDefault().syncExec(
+    		  new Runnable() {
+			          public void run(){
+			
+			              selection[0] = progressBar.getSelection();
+			          }
+    		  	}
+    		  );
+
+      
+      Display.getDefault().asyncExec(() -> progressBar.setMaximum(modlist.length-1));
+      
       
       new Thread(new Runnable() {			
 			@Override
-			public void run() {
-				boolean thisa = true;
-				while(thisa)
-				if (modlist.length == new File(path).list().length) {
-					try {
-						Thread.sleep(10*1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					JOptionPane.showMessageDialog(null, "Download is complete", "Confirmation: ", JOptionPane.INFORMATION_MESSAGE);
-					thisa=false;
-					
-					 if (display.isDisposed())
-				            return;
-				          display.asyncExec(new Runnable() {
-				            public void run() {
-				              if (btndld.isDisposed())
-				                return;
-				              btndld.setEnabled(true);
-				            }
-				          });
-					
-				}
+			public void run() {				
+				
+				boolean miam = true;
+	              
+	              while(miam) {
+		              if (selection[0] == modlist.length) {
+							JOptionPane.showMessageDialog(null, "Download is complete", "Confirmation: ", JOptionPane.INFORMATION_MESSAGE);
+							
+							 if (display.isDisposed())
+						            return;
+						          display.asyncExec(new Runnable() {
+						            public void run() {
+						              if (btndld.isDisposed())
+						                return;
+						              btndld.setEnabled(true);
+						            }
+						          });
+						     miam = false;
+							
+						}
+		              else {
+		            	  try {
+							Thread.sleep(20);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		              }
+	              }
+				
+				
 			}			        
 	  }).start();
       
 	  while(i != modlist.length) {
 		  			  
 		  final int a = i;
-		  final String b = path;
+		  final String b = path[0];
 		  new Thread(new Runnable() {
 			  
 				String url = modlist[a];	
@@ -225,21 +315,23 @@ public class installgmi {
 				@Override
 				public void run() {
 			        try {
-			            downloadUsingNIO(url, b + "/mod_" + a + ".jar");
+			            downloadUsingNIO(url, b + "/mods_01_" + a + ".jar");
+			            
+				        if (display.isDisposed())
+				            return;
+				          display.asyncExec(new Runnable() {
+				            public void run() {
+				              if (progressBar.isDisposed())
+				                return;
+				              progressBar.setSelection(progressBar.getSelection()+1);
+				            }
+				          });
 			        } catch (IOException e) {
 			        	JOptionPane.showMessageDialog(null, "Download failed: " + e, "Error: ", JOptionPane.INFORMATION_MESSAGE);
 			            e.printStackTrace();
 			        }
 			        
-			        if (display.isDisposed())
-			            return;
-			          display.asyncExec(new Runnable() {
-			            public void run() {
-			              if (progressBar.isDisposed())
-			                return;
-			              progressBar.setSelection(progressBar.getSelection()+1);
-			            }
-			          });
+
 				}			        
 		  }).start();
 			        
@@ -268,27 +360,64 @@ public class installgmi {
 	   }	   
    }
    
-   public boolean PathClean(String path) {
-	   try {
-		   if (isDirEmpty(Paths.get(path))) {
-			   return true;
-		   }
-		   else {
-			   JOptionPane.showMessageDialog(null, "The mods folder contains something else (maybe an old mod set or version). Empty the folder then try again", "Error: ", JOptionPane.INFORMATION_MESSAGE);
-			   return false;
-		   }
-	   }
-	   catch(IOException e) {
-		   JOptionPane.showMessageDialog(null, "Error:" + e, "Error: ", JOptionPane.INFORMATION_MESSAGE);
-		   return false;
-		   
-	   }
-   }
+//   public boolean PathClean(String path) {
+//	   try {
+//		   if (isDirEmpty(Paths.get(path))) {
+//			   return true;
+//		   }
+//		   else {
+//			   
+//			   
+//			   
+//			   File folder = new File(path);
+//			   File[] listOfFiles = folder.listFiles();
+//
+//			   for (int i = 0; i < listOfFiles.length; i++) {
+//			     if (listOfFiles[i].isFile()) {
+//			       System.out.println("File " + listOfFiles[i].getName());
+//			     } else if (listOfFiles[i].isDirectory()) {
+//			       System.out.println("Directory " + listOfFiles[i].getName());
+//			     }
+//			   }
+//			   
+//			   int s = 0;
+//			   for (File file : listOfFiles) {
+//				   if (file.getName().contains("mods_01_")) {
+//								Runtime.getRuntime().exec("powershell rm "+ file.getPath());
+//					   
+//				   }
+//				   else
+//				   {	
+//
+//					   JOptionPane.showMessageDialog(null, "The mods folder contains something else (maybe an old mod set or version). Empty the folder then try again", "Error: ", JOptionPane.INFORMATION_MESSAGE);
+//					   DesktopApi.browse(file.toURI());
+//					   
+//					   return false;
+//				   }
+//				   
+//				   return true;
+//
+//			   }
+//			   
+//
+//		   }
+//	   }
+//	   catch(IOException e) {
+//		   JOptionPane.showMessageDialog(null, "Error:" + e, "Error: ", JOptionPane.INFORMATION_MESSAGE);
+//		   return false;
+//		   
+//	   }
+//	return false;
+//   }
    
-   private static boolean isDirEmpty(final Path directory) throws IOException {
-	    try(DirectoryStream<Path> dirStream = Files.newDirectoryStream(directory)) {
-	        return !dirStream.iterator().hasNext();
-	    }
-	}
+//   private static boolean isDirEmpty(final Path directory) throws IOException {
+//	    try(DirectoryStream<Path> dirStream = Files.newDirectoryStream(directory)) {
+//	        return !dirStream.iterator().hasNext();
+//	    }
+//	}
+//   
+   
    
 }
+
+
