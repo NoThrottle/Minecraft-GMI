@@ -35,7 +35,6 @@ public class PathCleanclass implements Runnable {
   			     }
   			   }
   			   
-  			   int s = 0;
   			   for (File file : listOfFiles) {
   				   if (file.getName().contains("mods_01_")) {
   							Runtime.getRuntime().exec("powershell rm "+ file.getPath());
