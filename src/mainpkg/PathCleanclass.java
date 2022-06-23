@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class PathCleanclass implements Runnable {
      private volatile boolean value;
-     public static String path;
+     public String path;
 
      @Override
      public void run() {
