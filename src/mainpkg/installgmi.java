@@ -32,6 +32,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 
 public class installgmi {
+	
 	Display display = Display.getDefault();
 	Shell shlHsmcGmi = new Shell(display);
 	GridLayout gridLayout = new GridLayout();
@@ -215,7 +216,8 @@ public class installgmi {
 	   
    private String[] modlist = 
 	   	  {
-	   			"https://cdn.modrinth.com/data/P7dR8mSH/versions/0.56.1+1.19/fabric-api-0.56.1%2B1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3773/641/badpackets-fabric-0.1.2.jar",
+	   			"https://cdn.modrinth.com/data/P7dR8mSH/versions/0.56.3+1.19/fabric-api-0.56.3%2B1.19.jar",
 	   			"https://cdn.modrinth.com/data/Fb4jn8m6/versions/1.19-3.6.1/FallingTree-1.19-3.6.1.jar",
 	   			"https://cdn.modrinth.com/data/1bZhdhsH/versions/fabric-1.19-1.2.16/plasmovoice-fabric-1.19-1.2.16.jar",
 	   			"https://media.forgecdn.net/files/3831/918/better-nether-7.0.2.jar",
@@ -225,7 +227,6 @@ public class installgmi {
 	   			"https://media.forgecdn.net/files/3831/901/bclib-2.0.5.jar",
 	   			"https://media.forgecdn.net/files/3805/637/moreberries-1.5.1.jar",
 	   			"https://cdn.modrinth.com/data/9s6osm5g/versions/7.0.72+fabric/cloth-config-7.0.72-fabric.jar",
-	   			"https://media.forgecdn.net/files/3835/518/fabrication-3.0-pre4%2B1.19.jar",
 	   			"https://media.forgecdn.net/files/3827/640/Couplings-1.9.0%2B1.19.jar",
 	   			"https://media.forgecdn.net/files/3831/60/dehydration-1.2.9.jar",
 	   			"https://media.forgecdn.net/files/3836/369/backslot-1.2.8.jar",
@@ -247,6 +248,14 @@ public class installgmi {
 	   			"https://mediafiles.forgecdn.net/files/3843/623/architectury-5.7.28-fabric.jar",
 	   			"https://mediafiles.forgecdn.net/files/3822/773/soundphysics-fabric-1.19-1.0.6.jar",
 	   			"https://mediafiles.forgecdn.net/files/3823/521/notenoughanimations-fabric-1.6.0-mc1.19.jar",
+	   			"https://cdn.modrinth.com/data/6AQIaxuO/versions/fabric-5.4.3/wthit-fabric-5.4.3.jar",
+	   			"https://mediafiles.forgecdn.net/files/3838/331/vmp-fabric-mc1.19-0.2.0%2Bbeta.5.0-all.jar",
+	   			"https://mediafiles.forgecdn.net/files/3843/368/fabrication-3.0-pre5%2B1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3819/689/transportables-1.2.1.jar",
+	   			"https://mediafiles.forgecdn.net/files/3828/191/emotecraft-for-MC1.19-2.1.3-SNAPSHOT-build.30-fabric.jar",
+	   			"https://mediafiles.forgecdn.net/files/3822/828/mcdar-1.5.0.jar",
+	   			"https://mediafiles.forgecdn.net/files/3821/450/mcda-2.1.0.jar",
+	   			"https://mediafiles.forgecdn.net/files/3822/127/weaponmaster-multi-fabric-1-19.jar",
 	   			"https://cdn.modrinth.com/data/WhbRG4iK/versions/1.12.1/fallingleaves-1.12.1%2B1.19.jar",
 	   			"https://cdn.modrinth.com/data/rUgZvGzi/versions/1.8.1/eating-animation-1.8.1.jar",
 	   			"https://cdn.modrinth.com/data/aC3cM3Vq/versions/1.19-2.22-fabric/MouseTweaks-fabric-mc1.19-2.22.jar",
@@ -260,11 +269,13 @@ public class installgmi {
 	   			"https://mediafiles.forgecdn.net/files/3834/55/lambdabettergrass-1.3.0%2B1.19.jar",
 	   			"https://mediafiles.forgecdn.net/files/3823/508/entityculling-fabric-1.5.2-mc1.19.jar",
 	   			"https://mediafiles.forgecdn.net/files/3841/824/enhancedblockentities-0.7.1%2B1.19.jar",
+	   			"https://mediafiles.forgecdn.net/files/3823/897/CustomSkinLoader_Fabric-14.14-SNAPSHOT-325.jar",
+	   			"https://mediafiles.forgecdn.net/files/3834/421/BetterThirdPerson-Fabric-1.19-1.8.1.jar",
    			};
   
    private String[] d_modlist = {
 		   
-		   "https://cdn.modrinth.com/data/P7dR8mSH/versions/0.56.1+1.19/fabric-api-0.56.1%2B1.19.jar",
+		   "https://cdn.modrinth.com/data/P7dR8mSH/versions/0.56.3+1.19/fabric-api-0.56.3%2B1.19.jar",
 		   "https://cdn.modrinth.com/data/Fb4jn8m6/versions/1.19-3.6.1/FallingTree-1.19-3.6.1.jar",
 		   "https://cdn.modrinth.com/data/1bZhdhsH/versions/fabric-1.19-1.2.16/plasmovoice-fabric-1.19-1.2.16.jar",
 		   "https://media.forgecdn.net/files/3831/918/better-nether-7.0.2.jar",
@@ -274,7 +285,6 @@ public class installgmi {
 		   "https://media.forgecdn.net/files/3831/901/bclib-2.0.5.jar",
 		   "https://media.forgecdn.net/files/3805/637/moreberries-1.5.1.jar",
 		   "https://cdn.modrinth.com/data/9s6osm5g/versions/7.0.72+fabric/cloth-config-7.0.72-fabric.jar",
-		   "https://media.forgecdn.net/files/3835/518/fabrication-3.0-pre4%2B1.19.jar",
 		   "https://media.forgecdn.net/files/3827/640/Couplings-1.9.0%2B1.19.jar",
 		   "https://media.forgecdn.net/files/3831/60/dehydration-1.2.9.jar",
 		   "https://media.forgecdn.net/files/3836/369/backslot-1.2.8.jar",
@@ -296,6 +306,14 @@ public class installgmi {
 		   "https://mediafiles.forgecdn.net/files/3843/623/architectury-5.7.28-fabric.jar",
 		   "https://mediafiles.forgecdn.net/files/3822/773/soundphysics-fabric-1.19-1.0.6.jar",
 		   "https://mediafiles.forgecdn.net/files/3823/521/notenoughanimations-fabric-1.6.0-mc1.19.jar",
+		   "https://cdn.modrinth.com/data/6AQIaxuO/versions/fabric-5.4.3/wthit-fabric-5.4.3.jar",
+		   "https://mediafiles.forgecdn.net/files/3838/331/vmp-fabric-mc1.19-0.2.0%2Bbeta.5.0-all.jar",
+		   "https://mediafiles.forgecdn.net/files/3843/368/fabrication-3.0-pre5%2B1.19.jar",
+		   "https://mediafiles.forgecdn.net/files/3819/689/transportables-1.2.1.jar",
+		   "https://mediafiles.forgecdn.net/files/3828/191/emotecraft-for-MC1.19-2.1.3-SNAPSHOT-build.30-fabric.jar",
+		   "https://mediafiles.forgecdn.net/files/3822/828/mcdar-1.5.0.jar",
+		   "https://mediafiles.forgecdn.net/files/3821/450/mcda-2.1.0.jar",
+		   "https://mediafiles.forgecdn.net/files/3822/127/weaponmaster-multi-fabric-1-19.jar",
 		   "https://cdn.modrinth.com/data/uXXizFIs/versions/5.0.0-fabric/ferritecore-5.0.0-fabric.jar",
 		   "https://cdn.modrinth.com/data/fQEb0iXm/versions/0.2.0/krypton-0.2.0.jar",
 		   "https://cdn.modrinth.com/data/gvQqBUqZ/versions/mc1.19-0.8.0/lithium-fabric-mc1.19-0.8.0.jar",
@@ -303,9 +321,9 @@ public class installgmi {
 		   "https://cdn.modrinth.com/data/TYaqEeAP/versions/1.6.0/SimplerAuth-1.6.0.jar",
 		   "https://cdn.modrinth.com/data/muf0XoRe/versions/6.0.4+1.19/repurposed_structures_fabric-6.0.4%2B1.19.jar",
 		   "https://cdn.modrinth.com/data/sml2FMaA/versions/mc1.19-1.2.2-fabric/anti-xray-1.2.2-Fabric-1.19.jar",
-		   "https://cdn.modrinth.com/data/6AQIaxuO/versions/fabric-5.4.3/wthit-fabric-5.4.3.jar",
 		   "https://cdn.modrinth.com/data/cUhi3iB2/versions/1.3.14/tabtps-fabric-mc1.19-1.3.14.jar",
 		   "https://mediafiles.forgecdn.net/files/3819/692/stoneholm-1.4.4.jar",
+		   "https://mediafiles.forgecdn.net/files/3773/641/badpackets-fabric-0.1.2.jar",
 		   
    };
    
@@ -322,9 +340,6 @@ public class installgmi {
 			          }
     		  	}
     		  );
-      
-      
-
       
       Display.getDefault().asyncExec(() -> progressBar.setMaximum(modlist.length-1));
       

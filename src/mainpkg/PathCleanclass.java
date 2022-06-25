@@ -31,6 +31,9 @@ public class PathCleanclass implements Runnable {
      }
 
      public void PathClean(String path) {
+    	 
+    	 System.out.println(path);
+    	 
   	   try {
   		   if (isDirEmpty(Paths.get(path))) {
   			   value = true;
@@ -46,6 +49,7 @@ public class PathCleanclass implements Runnable {
   			   for (File file : listOfFiles) {
   				   if (file.getName().contains("mods_01_")) {
 					   
+  					 System.out.println("delte normal::" +  file.getPath());
   					   DeleteFile(file);
   					   
   				   }
@@ -55,6 +59,7 @@ public class PathCleanclass implements Runnable {
   				   else
   				   {	
   					   if (DeleteEverything) {
+  						 System.out.println("delte evyrtign::" + file.getPath());
   	  					   DeleteFile(file);
   					   }
   					   else if (ignoreOthers) {
@@ -66,6 +71,7 @@ public class PathCleanclass implements Runnable {
   	  					 {
   	  						 DeleteEverything = true;
 	  	  					 DeleteFile(file);	   
+	  	  					System.out.println("delte evyrtign iinit::" + file.getPath());
  	  					} 
   	  					else {
   	  						
@@ -84,9 +90,12 @@ public class PathCleanclass implements Runnable {
   					   }
   				   }
   				   
-  				 value = true;
-  				 return; 				   
+  								   
   			   }
+  			   
+  			 value = true;
+  			 return;
+  			   
   		   }
   	   }
   	   catch(IOException e) {
