@@ -176,7 +176,6 @@ public class installgmi {
 			return null;
 		}
 
-		//send process to log
 	}
 	
 	//////////////////////////////////////
