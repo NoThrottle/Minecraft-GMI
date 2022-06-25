@@ -437,6 +437,7 @@ public class installgmi {
 		   return true;
 	   }
 	   else {
+		   JOptionPane.showMessageDialog(null, "Specified path/folder does not exist. Try launching Minecraft with the mod loader first.");
 		   return false;
 	   }	   
    }
