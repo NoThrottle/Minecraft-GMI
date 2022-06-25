@@ -26,13 +26,24 @@ import net.harawata.appdirs.AppDirsFactory;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 
 public class installgmi {
 	final Display display = Display.getDefault();
 	Shell shlHsmcGmi = new Shell(display);
-	Button btndld = new Button(shlHsmcGmi, SWT.NONE);
-	private Text text;
-	final ProgressBar progressBar = new ProgressBar(shlHsmcGmi, SWT.SMOOTH);
+	GridLayout gridLayout = new GridLayout();
+	
+	Label lblNewLabel;
+	Label lblLabel;
+	
+	Label lblModsFolderLocation;
+	Text text;
+	
+	Button btnbrowse;
+	Label lblProgress;
+	ProgressBar progressBar;
+	Button btndld;
 
 	/**
 	 * Launch the application.
@@ -52,10 +63,32 @@ public class installgmi {
 	 */
 	public void open() {
 		
-		shlHsmcGmi.setSize(450, 245);
-		shlHsmcGmi.setText("HSMC GMI");
+
+	    gridLayout.numColumns = 4;
+	    shlHsmcGmi.setLayout(gridLayout);
 		
-		Button btnbrowse = new Button(shlHsmcGmi, SWT.NONE);
+		shlHsmcGmi.setText("HSMC GMI");
+		new Label(shlHsmcGmi, SWT.NONE);
+		
+		lblNewLabel = new Label(shlHsmcGmi, SWT.NONE);
+		lblNewLabel.setFont(SWTResourceManager.getFont("Metropolis Semi Bold", 16, SWT.NORMAL));
+		lblNewLabel.setLayoutData(new GridData(SWT.CENTER,SWT.CENTER,true,false, 4, 1));
+		lblNewLabel.setText("GMI for HighSkyMinecraft");
+		
+		lblLabel = new Label(shlHsmcGmi, SWT.NONE);
+		lblLabel.setFont(SWTResourceManager.getFont("Segoe UI Semibold", 9, SWT.NORMAL));
+		lblLabel.setLayoutData(new GridData(SWT.CENTER,SWT.CENTER,true,false, 4, 1));
+		lblLabel.setText("Pack Version: 1.0.0");
+		
+		lblModsFolderLocation = new Label(shlHsmcGmi, SWT.NONE);
+		lblModsFolderLocation.setLayoutData(new GridData(SWT.BEGINNING,SWT.CENTER,true,false, 4, 1));
+		lblModsFolderLocation.setText("Mods Folder Location:");
+		
+		text = new Text(shlHsmcGmi, SWT.BORDER);
+		text.setText(GetClientModPath("mods").toString());		
+		text.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,false, 3, 1));	
+		
+		btnbrowse = new Button(shlHsmcGmi, SWT.NONE);
 		btnbrowse.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -68,14 +101,19 @@ public class installgmi {
 				}
 			}
 		});
-
-		btnbrowse.setBounds(341, 99, 65, 25);
+		btnbrowse.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,false, 1, 1));
 		btnbrowse.setText("Browse");
+				
+		lblProgress = new Label(shlHsmcGmi, SWT.NONE);
+		lblProgress.setLayoutData(new GridData(SWT.BEGINNING,SWT.CENTER,true,false, 4, 1));
+		lblProgress.setText("Progress:");
 		
-		text = new Text(shlHsmcGmi, SWT.BORDER);
-		text.setText(GetClientModPath("mods").toString());
-		text.setBounds(28, 99, 307, 25);
+		progressBar = new ProgressBar(shlHsmcGmi, SWT.SMOOTH);
+		GridData pbgd = new GridData(SWT.FILL,SWT.CENTER,true,false, 3, 1);
+		pbgd.heightHint = 20;
+		progressBar.setLayoutData(pbgd);
 		
+		btndld = new Button(shlHsmcGmi, SWT.NONE);
 		btndld.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -130,31 +168,13 @@ public class installgmi {
 
 			}
 		});
-		btndld.setBounds(352, 171, 72, 25);
+		btndld.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,false,false, 1, 1));
 		btndld.setText("Download");
 		
-		Label lblLabel = new Label(shlHsmcGmi, SWT.NONE);
-		lblLabel.setFont(SWTResourceManager.getFont("Segoe UI Semibold", 9, SWT.NORMAL));
-		lblLabel.setBounds(28, 45, 101, 15);
-		lblLabel.setText("Pack Version: 1.0.0");
-		
-		Label lblNewLabel = new Label(shlHsmcGmi, SWT.NONE);
-		lblNewLabel.setFont(SWTResourceManager.getFont("Metropolis Semi Bold", 16, SWT.NORMAL));
-		lblNewLabel.setBounds(28, 23, 268, 25);
-		lblNewLabel.setText("GMI for HighSkyMinecraft");
-		
-		progressBar.setBounds(10, 171, 336, 25);
-		
-		Label lblModsFolderLocation = new Label(shlHsmcGmi, SWT.NONE);
-		lblModsFolderLocation.setBounds(28, 80, 144, 15);
-		lblModsFolderLocation.setText("Mods Folder Location");
-		
-		Label lblProgress = new Label(shlHsmcGmi, SWT.NONE);
-		lblProgress.setBounds(10, 150, 55, 15);
-		lblProgress.setText("Progress:");
-
-		shlHsmcGmi.open();
+		shlHsmcGmi.setMinimumSize(100, 39);
+		shlHsmcGmi.pack();
 		shlHsmcGmi.layout();
+		shlHsmcGmi.open();
 		while (!shlHsmcGmi.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
