@@ -17,59 +17,67 @@ public class PathCleanclass implements Runnable {
         PathClean(path);
      }
 
-     public boolean PathClean(String path) {
+     public void PathClean(String path) {
   	   try {
   		   if (isDirEmpty(Paths.get(path))) {
   			   value = true;
+  			   return;
   		   }
   		   else {
   			     
   			   File folder = new File(path);
   			   File[] listOfFiles = folder.listFiles();
-
-  			   for (int i = 0; i < listOfFiles.length; i++) {
-  			     if (listOfFiles[i].isFile()) {
-  			       System.out.println("File " + listOfFiles[i].getName());
-  			     } else if (listOfFiles[i].isDirectory()) {
-  			       System.out.println("Directory " + listOfFiles[i].getName());
-  			     }
-  			   }
+  			   boolean DeleteEverything = false;
+  			   boolean ignoreOthers = false;
   			   
   			   for (File file : listOfFiles) {
   				   if (file.getName().contains("mods_01_")) {
-  							Runtime.getRuntime().exec("powershell rm "+ file.getPath());
-  							
-  							try {
-  								Runtime.getRuntime().exec("rm "+ file.getPath());
-  							}
-  							catch(IOException e){
-  								
-  							}
+					   
+  					   DeleteFile(file);
   					   
   				   }
   				   else
   				   {	
-
-  					   JOptionPane.showMessageDialog(null, "The mods folder contains something else (maybe an old mod set or version). Empty the folder then try again", "Error: ", JOptionPane.INFORMATION_MESSAGE);
-  					   DesktopApi.browse(file.toURI());
-  					   
-  					   value = false;
+  					   if (DeleteEverything) {
+  	  					   DeleteFile(file);
+  					   }
+  					   else if (ignoreOthers) {
+  						   
+  					   } 
+  					   else {
+  	  					 if (JOptionPane.showConfirmDialog(null, "The mods folder contains something else (maybe an old mod set or version). They may interfere with the modpack. Do you want to also delete them? (Recommended)", "WARNING",
+ 	  					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
+  	  					 {
+  	  						 DeleteEverything = true;
+	  	  					 DeleteFile(file);	   
+ 	  					} 
+  	  					else {
+  	  						
+  	  	  					 if (JOptionPane.showConfirmDialog(null, "Continue Installation?", "WARNING",
+  	 	  					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
+  	  	  					 {
+  	  	  						 ignoreOthers = true;	   
+  	 	  					} 
+  	  	  					else {
+  	  	  						DesktopApi.browse(file.toURI());
+  	 	  					    value = false;
+  	 	  					    return;
+  	 	  					}			
+ 	  					}
+  					   }
   				   }
   				   
-
   				 value = true;
-  				   
+  				 return; 				   
   			   }
-  			   
-
   		   }
   	   }
   	   catch(IOException e) {
   		   JOptionPane.showMessageDialog(null, "Error:" + e, "Error: ", JOptionPane.INFORMATION_MESSAGE);
-  		 value = false;
+  		   value = false;
+  		   return;
   		   
   	   }
-  	return false;
      }
      
      private static boolean isDirEmpty(final Path directory) throws IOException {
@@ -80,5 +88,24 @@ public class PathCleanclass implements Runnable {
      
      public boolean getValue() {
          return value;
+     }
+     
+     public void DeleteFile(File file) {
+    	 
+			try {
+				Runtime.getRuntime().exec("powershell rm "+ file.getPath());
+				return;
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();				
+			}
+			
+			try {
+				Runtime.getRuntime().exec("rm "+ file.getPath());
+				return;
+			}
+			catch(IOException e){
+				JOptionPane.showMessageDialog(null, "Error: Can't Delete File:" + file.getPath() + " " + e, "Error: ", JOptionPane.INFORMATION_MESSAGE);
+			}  
      }
  }
