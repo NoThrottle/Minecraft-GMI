@@ -75,6 +75,7 @@ public class PathCleanclass implements Runnable {
   	  	  						 ignoreOthers = true;	   
   	 	  					} 
   	  	  					else {
+  	  	  						JOptionPane.showMessageDialog(null, "You can create an ignore.txt on your mods folder and write all .jar (e.g mod1.jar) files you want to be ignored per line.");
   	  	  						DesktopApi.browse(file.toURI());
   	 	  					    value = false;
   	 	  					    return;
