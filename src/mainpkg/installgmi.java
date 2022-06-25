@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import net.harawata.appdirs.AppDirs;
@@ -26,11 +27,12 @@ import net.harawata.appdirs.AppDirsFactory;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 
 public class installgmi {
-	final Display display = Display.getDefault();
+	Display display = Display.getDefault();
 	Shell shlHsmcGmi = new Shell(display);
 	GridLayout gridLayout = new GridLayout();
 	
@@ -170,11 +172,22 @@ public class installgmi {
 		});
 		btndld.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,false,false, 1, 1));
 		btndld.setText("Download");
-		
+
 		shlHsmcGmi.setMinimumSize(100, 39);
 		shlHsmcGmi.pack();
 		shlHsmcGmi.layout();
+		
+		
+		Monitor primary = display.getPrimaryMonitor();
+	    Rectangle bounds = primary.getBounds();
+	    Rectangle rect = shlHsmcGmi.getBounds();
+		    
+	    int x = bounds.x + (bounds.width - rect.width) / 2;
+	    int y = bounds.y + (bounds.height - rect.height) / 2;
+		
+		shlHsmcGmi.setLocation(x, y);
 		shlHsmcGmi.open();
+		
 		while (!shlHsmcGmi.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
