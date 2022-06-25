@@ -1,19 +1,32 @@
 package mainpkg;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
 public class PathCleanclass implements Runnable {
      private volatile boolean value;
      public String path;
+     private List<String> ignore = new ArrayList<String>();
 
      @Override
      public void run() {
+    	ignore.add("ignore.txt");
+    	
+    	List<String> check = IgnoreListParse(path);   	
+    	if(check != null) {
+    		ignore.addAll(check);
+    	}
+
         PathClean(path);
      }
 
@@ -34,6 +47,9 @@ public class PathCleanclass implements Runnable {
   				   if (file.getName().contains("mods_01_")) {
 					   
   					   DeleteFile(file);
+  					   
+  				   }
+  				   else if (stringContainsItemFromList(file.getName(), ignore)) {
   					   
   				   }
   				   else
@@ -108,4 +124,47 @@ public class PathCleanclass implements Runnable {
 				JOptionPane.showMessageDialog(null, "Error: Can't Delete File:" + file.getPath() + " " + e, "Error: ", JOptionPane.INFORMATION_MESSAGE);
 			}  
      }
- }
+ 
+     public static boolean stringContainsItemFromList(String inputStr, List<String> items) {
+    	    return items.stream().anyMatch(inputStr::equals);
+    	}
+
+     
+     public List<String> IgnoreListParse(String path) {
+    	 
+    	 Path pathinter = Paths.get(path, "ignore.txt");
+    	 path = pathinter.toString();
+    	 
+    	 if(!DoesIgnoreListExist(path)) {
+    		 return null;
+    	 }
+    	 else {
+    		 try  
+    		 {  
+	    		 
+	    		 FileInputStream fis=new FileInputStream(path);       
+	    		 Scanner sc=new Scanner(fis);
+	    		 List<String> ignorelist = new ArrayList<String>();
+	    		  
+		    		 while(sc.hasNextLine())  
+		    		 {   
+			    		 ignorelist.add(sc.nextLine());
+			    	 }  
+			    	 sc.close();  
+			    	 return ignorelist;
+		     }  
+    		 catch(IOException e)  
+    		 {  
+    			 e.printStackTrace();
+    			 return null;
+    		 }  
+    	 }
+    	 
+    	 
+     }
+     
+     public boolean DoesIgnoreListExist(String path) {
+    	 return new File(path).isFile();
+     }
+
+}

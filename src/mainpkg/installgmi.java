@@ -78,7 +78,7 @@ public class installgmi {
 		lblLabel = new Label(shlHsmcGmi, SWT.NONE);
 		lblLabel.setFont(SWTResourceManager.getFont("Segoe UI Semibold", 9, SWT.NORMAL));
 		lblLabel.setLayoutData(new GridData(SWT.CENTER,SWT.CENTER,true,false, 4, 1));
-		lblLabel.setText("Pack Version: 1.0.0");
+		lblLabel.setText("Pack Version: 1.1.0");
 		
 		lblModsFolderLocation = new Label(shlHsmcGmi, SWT.NONE);
 		lblModsFolderLocation.setLayoutData(new GridData(SWT.BEGINNING,SWT.CENTER,true,false, 4, 1));
