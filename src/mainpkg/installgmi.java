@@ -274,7 +274,15 @@ public class installgmi {
    			};
   
    private String[] d_modlist = {
-		   
+		   "https://cdn.modrinth.com/data/uXXizFIs/versions/5.0.0-fabric/ferritecore-5.0.0-fabric.jar",
+		   "https://cdn.modrinth.com/data/fQEb0iXm/versions/0.2.0/krypton-0.2.0.jar",
+		   "https://cdn.modrinth.com/data/gvQqBUqZ/versions/mc1.19-0.8.0/lithium-fabric-mc1.19-0.8.0.jar",
+		   "https://cdn.modrinth.com/data/H8CaAYZC/versions/1.1.1+1.19/starlight-1.1.1%2Bfabric.ae22326.jar",
+		   "https://cdn.modrinth.com/data/TYaqEeAP/versions/1.6.0/SimplerAuth-1.6.0.jar",
+		   "https://cdn.modrinth.com/data/muf0XoRe/versions/6.0.4+1.19/repurposed_structures_fabric-6.0.4%2B1.19.jar",
+		   "https://cdn.modrinth.com/data/sml2FMaA/versions/mc1.19-1.2.2-fabric/anti-xray-1.2.2-Fabric-1.19.jar",
+		   "https://cdn.modrinth.com/data/cUhi3iB2/versions/1.3.14/tabtps-fabric-mc1.19-1.3.14.jar",
+		   "https://mediafiles.forgecdn.net/files/3819/692/stoneholm-1.4.4.jar",
 		   "https://cdn.modrinth.com/data/P7dR8mSH/versions/0.56.3+1.19/fabric-api-0.56.3%2B1.19.jar",
 		   "https://cdn.modrinth.com/data/Fb4jn8m6/versions/1.19-3.6.1/FallingTree-1.19-3.6.1.jar",
 		   "https://cdn.modrinth.com/data/1bZhdhsH/versions/fabric-1.19-1.2.16/plasmovoice-fabric-1.19-1.2.16.jar",
@@ -314,17 +322,7 @@ public class installgmi {
 		   "https://mediafiles.forgecdn.net/files/3822/828/mcdar-1.5.0.jar",
 		   "https://mediafiles.forgecdn.net/files/3821/450/mcda-2.1.0.jar",
 		   "https://mediafiles.forgecdn.net/files/3822/127/weaponmaster-multi-fabric-1-19.jar",
-		   "https://cdn.modrinth.com/data/uXXizFIs/versions/5.0.0-fabric/ferritecore-5.0.0-fabric.jar",
-		   "https://cdn.modrinth.com/data/fQEb0iXm/versions/0.2.0/krypton-0.2.0.jar",
-		   "https://cdn.modrinth.com/data/gvQqBUqZ/versions/mc1.19-0.8.0/lithium-fabric-mc1.19-0.8.0.jar",
-		   "https://cdn.modrinth.com/data/H8CaAYZC/versions/1.1.1+1.19/starlight-1.1.1%2Bfabric.ae22326.jar",
-		   "https://cdn.modrinth.com/data/TYaqEeAP/versions/1.6.0/SimplerAuth-1.6.0.jar",
-		   "https://cdn.modrinth.com/data/muf0XoRe/versions/6.0.4+1.19/repurposed_structures_fabric-6.0.4%2B1.19.jar",
-		   "https://cdn.modrinth.com/data/sml2FMaA/versions/mc1.19-1.2.2-fabric/anti-xray-1.2.2-Fabric-1.19.jar",
-		   "https://cdn.modrinth.com/data/cUhi3iB2/versions/1.3.14/tabtps-fabric-mc1.19-1.3.14.jar",
-		   "https://mediafiles.forgecdn.net/files/3819/692/stoneholm-1.4.4.jar",
 		   "https://mediafiles.forgecdn.net/files/3773/641/badpackets-fabric-0.1.2.jar",
-		   
    };
    
    public void download() {

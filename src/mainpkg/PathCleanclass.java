@@ -120,17 +120,22 @@ public class PathCleanclass implements Runnable {
     	 
 			try {
 				Runtime.getRuntime().exec("powershell rm "+ file.getPath());
+				Thread.sleep(150);
 				return;
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 			try {
 				Runtime.getRuntime().exec("rm "+ file.getPath());
+				Thread.sleep(150);
 				return;
 			}
-			catch(IOException e){
+			catch(IOException | InterruptedException e){
 				JOptionPane.showMessageDialog(null, "Error: Can't Delete File:" + file.getPath() + " " + e, "Error: ", JOptionPane.INFORMATION_MESSAGE);
 			}  
      }
